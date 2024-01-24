@@ -36,8 +36,8 @@ class corun_scheduler:
                 layer_latency = self.latency_capacity_dict[i][layer_name]
                 layer_total_latency += layer_latency
                 select_layer_list.append(layer_name)
-                # if layer_total_latency > total_latency:
-                break # select enough layer
+                if layer_total_latency > total_latency:
+                    break # select enough layer
             if total_latency > sum(self.latency_capacity_list[0]): # the kernel latency exceeds the capacity
                 self.overflow_sign[i]=1
             
@@ -53,17 +53,17 @@ class corun_scheduler:
                             schedule_plan[i][idx].append(kernels_on_GPU[kernel_idx])
                             remained_latency -= kernel_latency
                             kernel_idx += 1
-                        # elif kernels_on_GPU[kernel_idx].nOp > 1: # Resource-ware kernel sharding
-                        #     ori_nOp = kernels_on_GPU[kernel_idx].nOp
-                        #     for k in range(ori_nOp-1, 1, -1):
-                        #         sharded_latency = self.kernel_latency_predictor.predict_fused_kernel(kernels_on_GPU[kernel_idx], nOp=k)
-                        #         if remained_latency > sharded_latency: # shard
-                        #             kernel_1, kernel_2 = kernels_on_GPU[kernel_idx].kernel_shard(k)
-                        #             schedule_plan[i][idx].append(kernel_1)
-                        #             remained_latency -= sharded_latency
-                        #             kernels_on_GPU[kernel_idx] = kernel_2 # set the current kernel to kernel-2
-                        #         break
-                        #     break
+                        elif kernels_on_GPU[kernel_idx].nOp > 1: # Resource-ware kernel sharding
+                            ori_nOp = kernels_on_GPU[kernel_idx].nOp
+                            for k in range(ori_nOp-1, 1, -1):
+                                sharded_latency = self.kernel_latency_predictor.predict_fused_kernel(kernels_on_GPU[kernel_idx], nOp=k)
+                                if remained_latency > sharded_latency: # shard
+                                    kernel_1, kernel_2 = kernels_on_GPU[kernel_idx].kernel_shard(k)
+                                    schedule_plan[i][idx].append(kernel_1)
+                                    remained_latency -= sharded_latency
+                                    kernels_on_GPU[kernel_idx] = kernel_2 # set the current kernel to kernel-2
+                                break
+                            break
                         else: # add to next layer
                             break
 
