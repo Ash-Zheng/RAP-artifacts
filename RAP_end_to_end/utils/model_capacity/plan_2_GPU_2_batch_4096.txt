@@ -1,0 +1,6 @@
+         GPU_0   GPU_1   
+emb_fwd: 26,26
+mlp_fwd: 50,50
+mlp_bwd:72,74
+emb_bwd: 28,24
+grad_comm: 76,74

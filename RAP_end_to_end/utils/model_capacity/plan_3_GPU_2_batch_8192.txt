@@ -1,0 +1,6 @@
+         GPU_0   GPU_1   
+emb_fwd:
+mlp_fwd:
+mlp_bwd:
+emb_bwd:
+grad_comm:

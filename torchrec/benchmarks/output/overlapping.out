@@ -1,0 +1,41 @@
+Criteo: batch_size:4096, exp_type:fused_table, pooling_factor:1, pre_iter:42, SM_para:37, performance_decrease:4.583%
+Criteo fused table: batch_size:4096, exp_type:fused_table, pooling_factor:1, pre_iter:48, SM_para:13, performance_decrease:7.616%
+Criteo fused table: batch_size:4096, exp_type:fused_table, pooling_factor:1, pre_iter:49, SM_para:32, performance_decrease:4.211%
+Criteo fused table: batch_size:4096, exp_type:fused_table, pooling_factor:1, pre_iter:48, SM_para:30, performance_decrease:4.359%
+Criteo fused table: batch_size:4096, exp_type:fused_table, pooling_factor:1, pre_iter:47, SM_para:36, performance_decrease:4.463%
+Criteo fused table: batch_size:4096, exp_type:fused_table, pooling_factor:1, pre_iter:49, SM_para:23, performance_decrease:6.202%
+Criteo fused table: batch_size:4096, exp_type:fused_table, pooling_factor:1, pre_iter:38, SM_para:49, performance_decrease:8.125%
+Criteo fused table: batch_size:4096, exp_type:fused_table, pooling_factor:1, pre_iter:45, SM_para:0, performance_decrease:4.673%
+Criteo fused table: batch_size:4096, exp_type:fused_table, pooling_factor:1, pre_iter:37, SM_para:0, performance_decrease:6.078%
+Criteo fused table: batch_size:4096, exp_type:fused_table, pooling_factor:1, pre_iter:33, SM_para:67, performance_decrease:-0.973%
+Criteo fused table: batch_size:4096, exp_type:fused_table, pooling_factor:2, pre_iter:3, SM_para:1, performance_decrease:4.884%
+
+
+
+
+Criteo fused table: batch_size:4096, exp_type:fused_table, pooling_factor:1, pre_iter:48, SM_param:35, performance_decrease:5.319%, nTB:53760
+Criteo fused table: batch_size:4096, exp_type:fused_table, pooling_factor:1, pre_iter:38, SM_param:52, performance_decrease:6.485%, nTB:63232
+Criteo fused table: batch_size:4096, exp_type:fused_table, pooling_factor:1, pre_iter:50, SM_param:32, performance_decrease:1.515%, nTB:51200
+Criteo embeddingbag: batch_size:4096, exp_type:embeddingbag, pooling_factor:1, pre_iter:204, SM_param:87, performance_decrease:5.565%, nTB:567936
+Criteo embeddingbag: batch_size:4096, exp_type:embeddingbag, pooling_factor:1, pre_iter:204, SM_param:110, performance_decrease:4.328%, nTB:718080
+Criteo embeddingbag: batch_size:4096, exp_type:embeddingbag, pooling_factor:1, pre_iter:204, SM_param:88, performance_decrease:5.303%, nTB:574464
+Criteo fused table: batch_size:4096, exp_type:fused_table, pooling_factor:2, pre_iter:44, SM_param:19, performance_decrease:10.026%, nTB:26752
+Criteo fused table: batch_size:4096, exp_type:fused_table, pooling_factor:2, pre_iter:45, SM_param:37, performance_decrease:5.476%, nTB:53280
+Criteo fused table: batch_size:4096, exp_type:fused_table, pooling_factor:2, pre_iter:44, SM_param:36, performance_decrease:4.898%, nTB:50688
+Criteo embeddingbag: batch_size:4096, exp_type:embeddingbag, pooling_factor:2, pre_iter:204, SM_param:93, performance_decrease:5.778%, nTB:607104
+Criteo embeddingbag: batch_size:4096, exp_type:embeddingbag, pooling_factor:2, pre_iter:204, SM_param:97, performance_decrease:4.836%, nTB:633216
+Criteo fused table: batch_size:4096, exp_type:fused_table, pooling_factor:4, pre_iter:37, SM_param:41, performance_decrease:7.026%, nTB:48544
+Criteo fused table: batch_size:4096, exp_type:fused_table, pooling_factor:4, pre_iter:36, SM_param:39, performance_decrease:6.240%, nTB:44928
+Criteo fused table: batch_size:4096, exp_type:fused_table, pooling_factor:4, pre_iter:31, SM_param:72, performance_decrease:1.689%, nTB:71424
+Criteo fused table: batch_size:4096, exp_type:fused_table, pooling_factor:8, pre_iter:23, SM_param:50, performance_decrease:2.796%, nTB:36800
+Criteo fused table: batch_size:4096, exp_type:fused_table, pooling_factor:8, pre_iter:23, SM_param:43, performance_decrease:5.626%, nTB:31648
+Criteo fused table: batch_size:4096, exp_type:fused_table, pooling_factor:8, pre_iter:21, SM_param:51, performance_decrease:5.193%, nTB:34272
+Criteo fused table: batch_size:4096, exp_type:fused_table, pooling_factor:16, pre_iter:20, SM_param:72, performance_decrease:5.441%, nTB:46080
+Criteo fused table: batch_size:4096, exp_type:fused_table, pooling_factor:16, pre_iter:20, SM_param:74, performance_decrease:5.333%, nTB:47360
+Criteo fused table: batch_size:4096, exp_type:fused_table, pooling_factor:16, pre_iter:20, SM_param:70, performance_decrease:5.425%, nTB:44800
+Criteo fused table: batch_size:4096, exp_type:fused_table, pooling_factor:32, pre_iter:21, SM_param:100, performance_decrease:5.379%, nTB:67200
+Criteo fused table: batch_size:4096, exp_type:fused_table, pooling_factor:32, pre_iter:23, SM_param:39, performance_decrease:4.877%, nTB:28704
+Criteo fused table: batch_size:4096, exp_type:fused_table, pooling_factor:32, pre_iter:23, SM_param:45, performance_decrease:5.390%, nTB:33120
+Criteo fused table: batch_size:4096, exp_type:fused_table, pooling_factor:64, pre_iter:28, SM_param:69, performance_decrease:6.292%, nTB:61824
+Criteo fused table: batch_size:4096, exp_type:fused_table, pooling_factor:64, pre_iter:30, SM_param:49, performance_decrease:6.058%, nTB:47040
+Criteo fused table: batch_size:4096, exp_type:fused_table, pooling_factor:64, pre_iter:29, SM_param:60, performance_decrease:5.895%, nTB:55680

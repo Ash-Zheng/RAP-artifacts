@@ -1,0 +1,6 @@
+         GPU_0   GPU_1   GPU_2   GPU_3   
+emb_fwd: 28,26,28,26
+mlp_fwd: 36,34,36,36
+mlp_bwd: 48,44,46,46
+emb_bwd: 22,24,22,24
+grad_comm: 66,64,64,62
