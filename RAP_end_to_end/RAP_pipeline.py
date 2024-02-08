@@ -215,19 +215,19 @@ if __name__ == "__main__":
 
         kernel_decoder = fused_kernel_decoder(args.nDev, fused_kernel_list, parse_graph, args.preprocessing_plan)
         kernel_decoder.print_fused_kernel_info()
-        kernel_decoder.save_fused_kernel()
+        kernel_decoder.save_fused_kernel(args.preprocessing_plan)
         fused_kernels = kernel_decoder.get_kernel_on_GPUs()
 
-    # # # ===============================
-    # # # ======= Corun Schedule ========
-    # # # ===============================
+    # # # # ===============================
+    # # # # ======= Corun Schedule ========
+    # # # # ===============================
     scheduler = corun_scheduler(args.nDev, args.preprocessing_plan ,fused_kernels, latency_capacity_list, latency_capacity_dict, capacity_intensity_order, dlrm_exec_latency_dict, kernel_model)
     schedule = scheduler.schedule()
     scheduler.print_schedule()
 
-    # # # ===============================
-    # # # ========== Code Gen ===========
-    # # # ===============================
+    # # # # ===============================
+    # # # # ========== Code Gen ===========
+    # # # # ===============================
     all_node = parse_graph.nodes
     dlrm_layers = ["emb_fwd", "mlp_fwd", "mlp_bwd", "emb_bwd", "grad_comm"]
     c_gen = code_generator(args.nDev, args.preprocessing_plan, dlrm_layers, folder_name="generated_code")

@@ -8,11 +8,14 @@ To reproduce the results in the paper, we recommend to use a machine with 8 NVID
 ## Environment Setup
 ```
 docker pull zhengwang0122/zheng_torchrec_cudf:latest
-docker run --gpus all --name=RAP_exp -it -v <dir_of_RAP>:/workspace/RAP --ipc=host --cap-add=SYS_ADMIN zhengwang0122/zheng_torchrec_cudf:latest /bin/bash
+
+# <dir_of_RAP> is the root directory of RAP
+docker run --gpus all --name=RAP_exp -it -v /home/ec2-user/workspace/RAP-artifacts:/workspace/RAP --ipc=host --cap-add=SYS_ADMIN zhengwang0122/zheng_torchrec_cudf:latest /bin/bash
 
 apt-get update
 apt-get install graphviz
 apt-get install git 
+pip install matplotlib
 pip install graphviz
 pip install jinja2
 pip install xgboost
@@ -36,7 +39,7 @@ scripts/setup-ubuntu.sh
 python setup.py install
 
 # install torchrec
-cd torchrec/
+cd /workspace/RAP/torchrec
 python setup.py install develop 
 cd examples/test_installation/ 
 ./test.sh # this is used for testing the installation of torchrec
@@ -65,13 +68,19 @@ cd /workspace/RAP/baseline_end_to_end/CUDA_stream
 Get the MPS results (the result of MPS in Figure-9 will be stored in the directory: `/workspace/RAP/baseline_end_to_end/MPS/result`):
 ```
 cd /workspace/RAP/baseline_end_to_end/MPS
-./run_mps.sh
+./run_MPS.sh
 ```
 
 Get the RAP results
 ```
 cd /workspace/RAP/baseline_end_to_end/RAP
 ./run_RAP.sh
+```
+
+Generate Figures
+```
+cd /workspace/RAP/baseline_end_to_end
+python gen_plots.py
 ```
 
 
@@ -91,7 +100,7 @@ cd /workspace/RAP/breakdown_study/MPS_and_sequential
 Get the RAP w/o Mapping results (the result of RAP w/o Mapping in Figure-10 will be stored in the directory: `/workspace/RAP/breakdown_study/no_mapping/result`):
 ```
 cd /workspace/RAP/breakdown_study/no_mapping
-./get_no_fusion_result.sh
+./get_no_mapping_result.sh
 ```
 
 Get the RAP w/o Fusion results (the result of RAP w/o Fusion in Figure-10 will be stored in the directory: `/workspace/RAP/breakdown_study/no_fusion/result`):
@@ -110,6 +119,12 @@ Get the RAP results (the result of RAP in Figure-10 will be stored in the direct
 ```
 cd /workspace/RAP/breakdown_study/RAP
 ./run_RAP.sh
+```
+
+Generate Figures
+```
+cd /workspace/RAP/breakdown_study
+python gen_plots.py
 ```
 
 

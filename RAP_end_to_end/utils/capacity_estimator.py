@@ -78,7 +78,6 @@ class capacity_estimator:
         base_l_list = self.base_latency_dict.values()
         self.capacity_intensity_order = zip(self.train_op_list, l_list, base_l_list)
         self.capacity_intensity_order = sorted(self.capacity_intensity_order, key=lambda x: x[1]/x[2], reverse=True)
-        
 
     def get_capacity(self):
         return self.latency_capacity_list, self.latency_capacity_dict, self.capacity_intensity_order

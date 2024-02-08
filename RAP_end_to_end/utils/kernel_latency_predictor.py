@@ -456,7 +456,7 @@ class latency_perdictor:
         model = self.ngram_model
         op_id = self.all_op_list.index("ngram")
 
-        fuse_degree = nBatch
+        fuse_degree = nBatch * 4
         op_width = (8 - 4 + 1) * 4
         input_data = np.array([op_id, fuse_degree, op_width]).reshape(1, -1)
         latency = model.predict(xgb.DMatrix(input_data))

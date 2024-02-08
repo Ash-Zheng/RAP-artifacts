@@ -2,7 +2,7 @@ import argparse
 import itertools
 import os
 import sys
-sys.path.append('/workspace/Online_DLRM/torchrec_models')
+sys.path.append('/workspace/RAP/torchrec_models')
 
 from typing import Iterator, List
 
@@ -129,6 +129,43 @@ def train_process(rank, nDev, args) -> None:
         embedding_tables, get_default_sharders(), default_group
     )
 
+    # =================== Make sure sharding is correct ===================
+    nTable = len(args.cat_name)
+    table_mapping = []
+    if args.preprocessing_plan in [0, 1] and args.nDev == 2:
+        table_mapping = [0, 1, 1, 0, 0, 0, 1, 1, 1, 1, 1, 1, 0, 0, 1, 1, 1, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0] # default sharding for preprocessing_plan=0
+    elif args.preprocessing_plan in [0, 1] and args.nDev == 4:
+        table_mapping = [1,1,3,2, 2,2,3,1, 1,3,1,3, 0,0,1,3, 1,2,3,0, 0,2,2,0, 0,2,0]
+    elif args.preprocessing_plan in [0, 1] and args.nDev == 8:
+        table_mapping = [1, 1, 3, 6, 2, 2, 7, 1, 5, 3, 5, 7, 0, 0, 5, 3, 1, 2, 7, 0, 4, 2, 6, 4, 4, 6, 0]
+    elif args.preprocessing_plan == 2 and args.nDev == 2:
+        table_mapping = [0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1]
+    elif args.preprocessing_plan == 2 and args.nDev == 4:
+        table_mapping = [0, 1, 2, 3, 0, 1, 2, 3, 0, 1, 2, 3, 0, 1, 2, 3, 0, 1, 2, 3, 0, 1, 2, 3, 0, 1, 2, 3, 0, 1, 2, 3, 0, 1, 2, 3, 0, 1, 2, 3, 0, 1, 2, 3, 0, 1, 2, 3, 0, 1, 2, 3]
+    elif args.preprocessing_plan == 2 and args.nDev == 8:
+        table_mapping = [0, 1, 2, 3, 4, 5, 6, 7, 0, 1, 2, 3, 4, 5, 6, 7, 0, 1, 2, 3, 4, 5, 6, 7, 0, 1, 2, 3, 4, 5, 6, 7, 0, 1, 2, 3, 4, 5, 6, 7, 0, 1, 2, 3, 4, 5, 6, 7, 0, 1, 2, 3]
+    elif args.preprocessing_plan == 3 and args.nDev == 2:
+        table_mapping = [0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1]
+    elif args.preprocessing_plan == 3 and args.nDev == 4:
+        table_mapping = [1, 2, 0, 3, 3, 3, 0, 2, 2, 3, 1, 3, 1, 1, 2, 0, 2, 3, 0, 0, 0, 2, 2, 1, 1, 3, 0, 1, 2, 3, 0, 1, 2, 3, 0, 1, 2, 3, 0, 1, 2, 3, 0, 1, 2, 3, 0, 1, 2, 3, 0, 1, 2, 3, 0, 1, 2, 3, 0, 1, 2, 3, 0, 1, 2, 3, 0, 1, 2, 3, 0, 1, 2, 3, 0, 1, 2, 3, 0, 1, 2, 3, 0, 1, 2, 3, 0, 1, 2, 3, 0, 1, 2, 3, 0, 1, 2, 3, 0, 1, 2, 3, 0, 1]
+    elif args.preprocessing_plan == 3 and args.nDev == 8:
+        table_mapping = [1, 2, 0, 3, 3, 3, 0, 2, 2, 3, 1, 3, 1, 1, 2, 0, 2, 3, 0, 0, 0, 2, 2, 1, 1, 3, 0, 1, 2, 3, 0, 1, 2, 3, 0, 1, 2, 3, 0, 1, 2, 3, 0, 1, 2, 3, 0, 1, 2, 3, 0, 1, 2, 3, 0, 1, 2, 3, 0, 1, 2, 3, 0, 1, 2, 3, 0, 1, 2, 3, 0, 1, 2, 3, 0, 1, 2, 3, 0, 1, 2, 3, 0, 1, 2, 3, 0, 1, 2, 3, 0, 1, 2, 3, 0, 1, 2, 3, 0, 1, 2, 3, 0, 1]
+    else:
+        raise ValueError("args.preprocessing_plan or args.nDev is not supported")
+
+    if nTable != len(table_mapping):
+        raise ValueError("nTable != len(table_mapping)")
+    table_names = plan.plan[''].keys()
+
+    for idx, t_name in enumerate(table_names):
+        plan.plan[''][t_name].ranks = [table_mapping[idx]]
+        plan.plan[''][t_name].sharding_spec.shards[0].placement._device = torch.device("cuda:{}".format(table_mapping[idx]))
+        plan.plan[''][t_name].sharding_spec.shards[0].placement._rank = table_mapping[idx]
+
+    # if rank == 0:
+        # print(plan)  
+    #====================================================
+
     sharded_emts = ShardedEmbeddingTable(
         embedding_tables=embedding_tables, 
         plan=plan, 
@@ -198,6 +235,7 @@ def training_iter(sparse_optimizer, dense_optimizer, loss_fn, in_mem_dataloader,
 
     # dist_input = sharded_emts.input_comm(batch.sparse_features) # input communication
     sparse_feature = sharded_emts.forward_on_dist_input(dist_input) # forward
+    # sparse_feature = sharded_emts(batch.sparse_features)
     logits = mlp_layers(batch.dense_features, sparse_feature)
     
     loss = loss_fn(logits, batch.labels.float())
@@ -206,6 +244,7 @@ def training_iter(sparse_optimizer, dense_optimizer, loss_fn, in_mem_dataloader,
     
     sparse_optimizer.step()
     dense_optimizer.step()
+    torch.cuda.synchronize()
     dist.barrier()
 
 

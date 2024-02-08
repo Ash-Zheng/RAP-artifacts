@@ -1,4 +1,5 @@
 import re
+import pickle
 
 class fused_kernel_node:
     def __init__(self, kernel_list, all_nodes):
@@ -758,8 +759,8 @@ class fused_kernel_decoder: # decoding the fused_kernel_list for latency predict
             print("GPU-{}:".format(gpu_id))
             print([(j.op_name, j.nOp) for j in i])
 
-    def save_fused_kernel(self):
-        with open("searched_fused_kernels/plan-{}_nGPU-{}.pkl".format(self.plan, self.nDev), "wb") as f:
+    def save_fused_kernel(self, plan):
+        with open("searched_fused_kernels/plan-{}_nGPU-{}.pkl".format(plan, self.nDev), "wb") as f:
             pickle.dump(self.decoded_kernel_on_GPUs, f)
         
     def duplicate_kernels(self):
