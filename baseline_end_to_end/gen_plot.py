@@ -37,9 +37,9 @@ def load_result(exp, nGPU, batch_size, plan):
         return None
 
 
-for batch_size in [4096]:
-    for nGPU in [4]:
-        for plan in [0]:
+for batch_size in [4096, 8192]:
+    for nGPU in [2, 4]: # machine for artifacts evaluation only have 4 GPUs
+        for plan in [0, 1]:
             result_dict = {
                 "CPU": 0.0,
                 "CUDA_stream": 0.0,
