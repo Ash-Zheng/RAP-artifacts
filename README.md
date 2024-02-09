@@ -5,6 +5,18 @@ This repo is for the ASPLOS 2024 artifacts evaluation.
 ## Hardware Requirments
 To reproduce the results in the paper, we recommend to use a machine with 8 NVIDIA A100 GPUs (e.g. AWS p4d.24xlarge instance).
 
+## Installation Guide
+To setup the environment on a fresh machine, please follow the following steps:
+* Install CUDA Toolkit
+* Install NVIDIA Drivers
+* Install Docker
+* Install NVIDIA Container Toolkit
+
+RAP has been successfully tested with the following configurations:
+* OS: Ubuntu 20.04
+* CUDA version: 11.7
+* Docker version: 24.0.2
+
 ## Environment Setup
 ```
 docker pull zhengwang0122/zheng_torchrec_cudf:latest
@@ -48,6 +60,7 @@ cd examples/test_installation/
 ### RAP Code Generation
 Run RAP to generate the end-to-end training code. The generated code is located in `/workspace/RAP-artifacts/RAP_end_to_end/combined_code`
 ```
+mkdir /workspace/RAP/RAP_end_to_end/combined_code
 cd /workspace/RAP/RAP_end_to_end
 ./RAP_code_gen.sh
 ```
@@ -80,7 +93,7 @@ cd /workspace/RAP/baseline_end_to_end/RAP
 Generate Figures
 ```
 cd /workspace/RAP/baseline_end_to_end
-python gen_plots.py
+python gen_plot.py
 ```
 
 
@@ -124,7 +137,7 @@ cd /workspace/RAP/breakdown_study/RAP
 Generate Figures
 ```
 cd /workspace/RAP/breakdown_study
-python gen_plots.py
+python gen_plot.py
 ```
 
 
