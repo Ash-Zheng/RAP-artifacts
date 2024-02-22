@@ -22,7 +22,7 @@ RAP has been successfully tested with the following configurations:
 docker pull zhengwang0122/zheng_torchrec_cudf:latest
 
 # <dir_of_RAP> is the root directory of RAP
-docker run --gpus all --name=RAP_exp -it -v /home/ec2-user/workspace/RAP-artifacts:/workspace/RAP --ipc=host --cap-add=SYS_ADMIN zhengwang0122/zheng_torchrec_cudf:latest /bin/bash
+docker run --gpus all --name=RAP_exp -it -v <dir_of_RAP>:/workspace/RAP --ipc=host --cap-add=SYS_ADMIN zhengwang0122/zheng_torchrec_cudf:latest /bin/bash
 
 apt-get update
 apt-get install graphviz
